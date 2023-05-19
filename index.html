@@ -1,0 +1,36 @@
+<html>
+<head>
+    <title>Random Users</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $.ajax({
+                url: 'RandomUser.php',
+                dataType: 'json',
+                success: function(response) {
+                    var users = response;
+
+                    var table = '<table><thead><tr><th>First Name</th><th>Last Name</th><th>Email</th><th>Phone</th><th>Picture</th></tr></thead><tbody>';
+
+                    for (var i = 0; i < users.length; i++) {
+                        table += '<tr>';
+                        table += '<td>' + users[i].name.first + '</td>';
+                        table += '<td>' + users[i].name.last + '</td>';
+                        table += '<td>' + users[i].email + '</td>';
+                        table += '<td>' + users[i].phone + '</td>';
+                        table += '<td><img src="' + users[i].picture.medium + '" alt="User Picture"></td>';
+                        table += '</tr>';
+                    }
+
+                    table += '</tbody></table>';
+
+                    $('#user-table').html(table);
+                }
+            });
+        });
+    </script>
+</head>
+<body>
+    <div id="user-table"></div>
+</body>
+</html>
